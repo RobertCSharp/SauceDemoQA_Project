@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,11 @@ namespace SauceDemoQA_Project.Pages
         public void ClickFinshPage()
         {
             driver.FindElement(By.CssSelector("#finish")).Click();
+        }
+
+        public string GetThankYouMessage() 
+        {
+            return driver.FindElement(By.CssSelector(".complete-header")).Text;
         }
     }
 }

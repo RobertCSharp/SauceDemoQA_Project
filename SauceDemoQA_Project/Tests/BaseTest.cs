@@ -15,6 +15,7 @@ namespace SauceDemoQA_Project.Tests
         protected MyCartPage myCartPage;
         protected CheckOutPage checkOutPage;
         protected FinishPage finishPage;
+
         [SetUp]
         public void CreateObjects()
         {
@@ -54,25 +55,29 @@ namespace SauceDemoQA_Project.Tests
         {
             loginPage.Login();
             homePage.ClickOnFirstProduct();
-            homePage.Wait(2);
+            homePage.Wait(4);
             productPage.ClickBackToHome();  
         }
 
         [Test]
-        public void EndToEnd()
+        public void EndToEndTest()
         {
             loginPage.Login();
+            loginPage.Wait(1);
             homePage.ClickOnFirstProduct();
+            homePage.Wait(1);
             addToCardPage.AddToCard();
             myCartPage.ClickMyCartPage();
+            myCartPage.Wait(1);
             checkOutPage.PressCheckOutButton();
+            checkOutPage.Wait(1);
             checkOutPage.InsertCheOutInformation();
             finishPage.ClickFinshPage();
-            homePage.Wait(2);
+            homePage.Wait(4);
 
-            string expectedMessage = "Thank you for your order!";
-            string actualMessage = driver.FindElement(By.CssSelector(".complete-header")).Text;
-            Assert.AreEqual(expectedMessage, actualMessage);
+            string expectedMessage = Constants.ThankYouMessage;
+            string actualMessage = finishPage.GetThankYouMessage();
+            Assert.That(expectedMessage, Is.EqualTo(actualMessage));
         }
     }
 }
